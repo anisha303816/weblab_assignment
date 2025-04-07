@@ -1,0 +1,118 @@
+<!-- 
+USN: 1MS22CS028 
+Name: Anisha Ajit
+Section: A 
+
+Utilizing this assignment, I derived a good understanding about scopes in Javascript. A variable that is declared but not assigned a value is undefined, this can be seen in the console log.
+Javascript utilizes hoisting, which means that variable and function declarations are moved to the top of their containing scope during the compile phase.
+This means that you can use a variable or function before it is declared in the code.
+A variable that is declared outside of any function is a global variable and can be accessed anywhere in the script.
+A variable that is declared inside a function is local to that function and cannot be accessed outside of it.
+A variable that is declared with the var keyword is function-scoped, meaning it can be accessed anywhere within the function in which it was declared. 
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Activity Score Evaluation</title>
+</head>
+<body>
+    <h1>Student Activity Score Evaluation</h1>
+    <script>
+        // Global Variables
+        // These can be accessed anywhere in the script
+        var studentName="Anisha";
+        var activityScores=[8,9,10,11,12];
+
+        // Function Declaration
+        //Calculated the sum of all scores
+        function calculateTotal() {
+            
+            //function-scoped variable
+            let total=0;
+
+            // Loop through the activityScores array and sum the scores
+            for (let i=0; i<activityScores.length; i++) {
+                total+=activityScores[i];
+            }
+            return total;
+        }
+
+        // Anonymous Function (stored in a variable)
+        var calculateAverage = function() {
+
+            // Using the calculateTotal function to get the total score
+            let total=calculateTotal();
+
+            //Expression to calculate average
+            return total / activityScores.length;
+        };
+
+        // Function Expression
+        var evaluateRank=function() {
+            // Using the calculateTotal function to get the total score
+            let totalScore=calculateTotal();
+
+            // Conditional logic to determine rank based on total score
+            if (totalScore>40) {
+                return "Star Performer";
+            } else if (totalScore>=30 && totalScore<=40) {
+                return "Active";
+            } else {
+                return "Inactive";
+            }
+        };
+
+        // Lexical Scope Task
+        function generateReport() {
+
+            // Use the function to find the rank based on the total score
+            let rank=evaluateRank();
+
+            // Nested Function to show details
+            // This function has access to the variables in the outer function's scope, such as the rank
+            function showDetails() {
+                let message;
+                if (rank==="Star Performer") {
+                    message="Great job on co-curriculars!";
+                } else {
+                    message="Keep up the good work!";
+                }
+
+                console.log("Report:");
+                console.log("  Student: " + studentName);   //global variable
+
+                // local variables
+                console.log("  Rank: " + rank);
+                console.log("  Message: " + message);
+            }
+
+            showDetails();
+        }
+
+        // Hoisting Experiment
+        //This can be seen using the developer tools, by adding breaks and debugging the code
+        try {
+            console.log("Category before declaration: " + category); // Should output undefined
+        } catch (e) {
+            console.error("Error: " + e.message);
+        }
+        var category="Some Category";
+
+        // Scope Isolation Test
+        if (true) {
+            var isolatedVar="Inside Block";
+            console.log("Inside block: " + isolatedVar);
+        }
+        console.log("Outside block: " + isolatedVar); // Demonstrates function scope
+
+        // Main Execution
+        console.log("Student: " + studentName);
+        console.log("Activity Scores: " + JSON.stringify(activityScores));
+        console.log("Total Score: " + calculateTotal());
+        console.log("Average Score: " + calculateAverage());
+        console.log("Rank: " + evaluateRank());
+        generateReport();
+    </script>
+</body>
+</html>

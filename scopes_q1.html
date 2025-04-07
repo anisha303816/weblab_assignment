@@ -1,0 +1,113 @@
+<!-- 
+USN: 1MS22CS028 
+Name: Anisha Ajit
+Section: A 
+
+Utilizing this assignment, I derived a good understanding about scopes in Javascript. A variable that is declared but not assigned a value is undefined, this can be seen in the console log.
+Javascript utilizes hoisting, which means that variable and function declarations are moved to the top of their containing scope during the compile phase.
+This means that you can use a variable or function before it is declared in the code.
+A variable that is declared outside of any function is a global variable and can be accessed anywhere in the script.
+A variable that is declared inside a function is local to that function and cannot be accessed outside of it.
+A variable that is declared with the var keyword is function-scoped, meaning it can be accessed anywhere within the function in which it was declared. 
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz App</title>
+</head>
+<body>
+    <h1>Quiz App</h1>
+    <button id="startQuiz">Start Quiz</button>
+    <div id="quizResult" style="display:none;"></div>
+    <script>
+        // Global variable to track the score
+        // The variable 'score' is declared in the global scope and can be accessed anywhere in the script
+        var score=0;
+
+        // The Quiz app asks three questions and keeps track of the score
+        // The score is displayed at the end of the quiz
+
+
+        // Function declaration : This function is hoisted and can be called before its declaration
+        // The function declaration is named askQuestion1
+        function askQuestion1() {
+
+            // function-scoped variables
+            var answer=prompt("What is 2 + 2?");
+            var correctAnswer="4"; 
+            //trying to access the variable 'answer' outside of its scope will throw an error
+
+            // Comparing the answer with the correct answer
+            // If the answer is correct, increment the score and alert the user
+            //A similar process is followed for the other questions
+            if (answer===correctAnswer) {
+                score++;
+                alert("Correct!");
+            } else {
+                alert("Incorrect.");
+            }
+            console.log("Score after question 1: " + score);
+        }
+
+        // Function expression : This function is not hoisted and cannot be called before its declaration
+        // The function expression is named askQuestion2
+        // It is assigned to a variable, which is function-scoped
+        var askQuestion2=function() {
+
+            // function-scoped variables
+            var answer=prompt("What is the capital of France?");
+            var correctAnswer="Paris";
+
+            if (answer.toLowerCase()===correctAnswer.toLowerCase()) {
+                score++;
+                alert("Correct!");
+            } else {
+                alert("Incorrect.");
+            }
+            console.log("Score after question 2: " + score);
+        };
+
+        // Function declaration
+        function askQuestion3() {
+
+            // function-scoped variables
+            var answer = prompt("What is 5 * 5?");
+            var correctAnswer = "25";
+            if (answer === correctAnswer) {
+                score++;
+                alert("Correct!");
+            } else {
+                alert("Incorrect.");
+            }
+            console.log("Score after question 3: " + score);
+        }
+
+        // Hoisting example
+        // The variable 'hoistedVar' is declared using var, so it is hoisted to the top of the function scope
+        // The variable 'hoistedVar' is declared but not assigned a value, so it is undefined until it is assigned a value
+        // This can be seen using the developer tools, by adding breaks and debugging the code
+
+        console.log("Variable 'hoistedVar' before declaration: " + hoistedVar); // Outputs undefined
+        var hoistedVar="Declared later";
+
+        document.getElementById("startQuiz").addEventListener("click", function() {
+            askQuestion1();
+            askQuestion2();
+            askQuestion3();
+
+            document.getElementById("quizResult").style.display = "block";
+            document.getElementById("quizResult").innerText = "Final Score: " + score + " out of 3";
+        });
+
+        // Bonus: Attempt to access score inside a question function
+        function reviewScore() {
+            try {
+                alert("Attempted score access: " + answer); // answer is not defined here
+            } catch (e) {
+                alert("Score is not accessible here. " + e.name + ": " + e.message);
+            }
+        }
+    </script>
+</body>
+</html>
