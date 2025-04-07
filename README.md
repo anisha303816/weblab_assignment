@@ -16,3 +16,5 @@ Utilizing this assignment, I derived a good understanding about scopes in Javasc
 <li>A variable that is declared inside a function is local to that function and cannot be accessed outside of it.</li>
 <li>A variable that is declared with the var keyword is function-scoped, meaning it can be accessed anywhere within the function in which it was declared. </li>
 </ol>
+
+Refer to the files scopes_q1, scopes_q2 for the codes.
